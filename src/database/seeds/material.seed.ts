@@ -1,5 +1,6 @@
 import { MaterialTypeEnum } from '@/interfaces/enums';
 import { MaterialEntity } from '../entities/material.entity';
+import { ProviderEntity } from '../entities/provider.entity';
 
 export const materials: MaterialEntity[] = [
   {
@@ -8,7 +9,10 @@ export const materials: MaterialEntity[] = [
     total: 45,
     cost: 490,
     type: MaterialTypeEnum.metr,
-    // image: '',
+    image: '/Hlopok.jpg',
+    provider: {
+      id: 1,
+    } as ProviderEntity,
   },
   {
     id: 2,
@@ -18,6 +22,9 @@ export const materials: MaterialEntity[] = [
     cost: 1590,
     // units: unit.find((u) => u.name === 'м2'),
     type: MaterialTypeEnum.metr2,
+    provider: {
+      id: 1,
+    } as ProviderEntity,
   },
   {
     id: 3,
@@ -27,6 +34,9 @@ export const materials: MaterialEntity[] = [
     cost: 2090,
     // units: unit.find((u) => u.name === 'м2'),
     type: MaterialTypeEnum.metr2,
+    provider: {
+      id: 2,
+    } as ProviderEntity,
   },
   {
     id: 4,
@@ -36,6 +46,9 @@ export const materials: MaterialEntity[] = [
     cost: 590,
     // units: unit.find((u) => u.name === 'м2'),
     type: MaterialTypeEnum.metr2,
+    provider: {
+      id: 2,
+    } as ProviderEntity,
   },
   {
     id: 5,
@@ -45,6 +58,9 @@ export const materials: MaterialEntity[] = [
     cost: 2590,
     // units: unit.find((u) => u.name === 'м2'),
     type: MaterialTypeEnum.metr2,
+    provider: {
+      id: 1,
+    } as ProviderEntity,
   },
   {
     id: 6,
@@ -54,6 +70,9 @@ export const materials: MaterialEntity[] = [
     cost: 1490,
     // units: unit.find((u) => u.name === 'м2'),
     type: MaterialTypeEnum.metr2,
+    provider: {
+      id: 2,
+    } as ProviderEntity,
   },
   {
     id: 7,
@@ -64,6 +83,9 @@ export const materials: MaterialEntity[] = [
     cost: 500,
     // units: unit.find((u) => u.name === 'шт'),
     type: MaterialTypeEnum.piece,
+    provider: {
+      id: 2,
+    } as ProviderEntity,
   },
   {
     id: 8,
@@ -73,5 +95,8 @@ export const materials: MaterialEntity[] = [
     cost: 3090,
     // units: unit.find((u) => u.name === 'м2'),
     type: MaterialTypeEnum.metr2,
+    provider: {
+      id: 1,
+    } as ProviderEntity,
   },
 ];

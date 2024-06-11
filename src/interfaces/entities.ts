@@ -42,6 +42,15 @@ export interface IFile extends IBaseModel {
   // material?: IMaterial;
 }
 
+export interface IHueta extends IBaseModel {
+  material?: IMaterial;
+  service: IService;
+  quantity: number;
+  length?: number; // float
+  width?: number; // float
+  description?: string;
+}
+
 export interface IOrder extends IBaseModel {
   name: string;
   surname: string;
@@ -49,12 +58,8 @@ export interface IOrder extends IBaseModel {
   startDate?: Date;
   deadline?: Date;
   employee: IUser;
-  service: IService;
-  quantity: number;
-  length?: number; // float
-  width?: number; // float
-  description?: string;
   amount?: number;
+  huetas?: IHueta[];
   status: OrderStatusEnum;
 }
 
@@ -71,6 +76,7 @@ export interface IMaterial extends IBaseModel {
   image?: string;
   categories?: ICategory[];
   total?: number;
+  provider?: IProvider;
 }
 
 export interface IProvider extends IBaseModel {
@@ -78,24 +84,25 @@ export interface IProvider extends IBaseModel {
   email: string;
   address: string;
   fio: string;
-  phone: string;
-  date: Date;
-  bin: string;
-  products: IProduct[];
+  phone?: string;
+  date?: Date;
+  bin?: string;
+  // products: IProduct[];
 }
 
 export interface ICategory extends IBaseModel {
   name: string;
   material: IMaterial;
+  products?: IProduct[];
 }
 
 export interface IProduct extends IBaseModel {
-  category: string;
+  category: ICategory;
   orderDate: Date;
   receptionDate: Date;
   amount: number;
   money: number;
-  provider: IProvider;
+  // provider: IProvider;
 }
 
 export interface IPosition extends IBaseModel {

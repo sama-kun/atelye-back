@@ -133,19 +133,6 @@ export class MaterialController extends BaseController<
     return this.dataService.findById(id, relations);
   }
 
-  @Get('auth/me')
-  @ApiBearerAuth()
-  @UseGuards(RolesGuard)
-  @Roles(RoleEnum.USER)
-  me(@AuthUser() user: UserEntity) {
-    if (!user)
-      throw new HttpException('Токен неверный', HttpStatus.UNAUTHORIZED);
-    return this.dataService.findOne({
-      where: { id: user.id },
-      relations: [],
-    });
-  }
-
   // @Get('/teacher')
   // @ApiBearerAuth()
   // @UseGuards(RolesGuard)
@@ -159,7 +146,7 @@ export class MaterialController extends BaseController<
   @ApiBearerAuth()
   @UseGuards(RolesGuard)
   @Roles(RoleEnum.ADMIN)
-  delete(@AuthUser() user: UserEntity, @Param('id') id: string) {
+  delete(@AuthUser() user: UserEntity, @Param('id') id: number) {
     return this.dataService.delete(user, id);
   }
 }

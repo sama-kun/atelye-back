@@ -1,11 +1,18 @@
-import { Entity, Column, ManyToOne, JoinColumn } from 'typeorm';
+import {
+  Entity,
+  Column,
+  ManyToOne,
+  JoinColumn,
+  OneToMany,
+  JoinTable,
+} from 'typeorm';
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 
 import { UserEntity } from './user.entity';
 import { IOrder } from '@/interfaces/entities';
 import { BaseModel } from '@/common/base/BaseModel';
 import { OrderStatusEnum } from '@/interfaces/enums';
-import { ServiceEntity } from './service.entity';
+import { HuetaEntity } from './hueta.entity';
 
 @Entity('orders')
 export class OrderEntity extends BaseModel implements IOrder {
@@ -34,26 +41,9 @@ export class OrderEntity extends BaseModel implements IOrder {
   @ApiProperty({ type: () => UserEntity, example: 1 })
   employee: UserEntity;
 
-  @ManyToOne(() => ServiceEntity, (service) => service.orders, { eager: true }) // Предполагаем, что в Service есть свойство 'orders'
-  @JoinColumn()
-  @ApiProperty({ type: () => ServiceEntity })
-  service: ServiceEntity;
-
-  @ApiProperty()
-  @Column()
-  quantity: number;
-
-  @ApiPropertyOptional()
-  @Column({ type: 'float', nullable: true })
-  length?: number;
-
-  @ApiPropertyOptional()
-  @Column({ type: 'float', nullable: true })
-  width?: number;
-
-  @ApiPropertyOptional()
-  @Column({ nullable: true })
-  description?: string;
+  @OneToMany(() => HuetaEntity, (hueta) => hueta.order)
+  // @JoinTable()
+  huetas?: HuetaEntity[];
 
   @ApiPropertyOptional()
   @Column({ type: 'decimal', nullable: true })

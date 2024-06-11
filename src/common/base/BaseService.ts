@@ -36,8 +36,7 @@ export abstract class BaseService<
   }
 
   async findOne(option: any): Promise<Entity> {
-    // option.relations = [...((option.relations as Array<string>) || [])];
-    option.relations = option.relations.split(',');
+    // option.relations = option.relations.split(',');
     const record = this.repo.findOne(option);
     if (!record)
       throw new HttpException('Record not found', HttpStatus.NOT_FOUND);
@@ -46,12 +45,15 @@ export abstract class BaseService<
 
   async findById(id: number, relations: string): Promise<Entity> {
     try {
-      const relationsArray = relations.split(',');
+      const relationsArray = relations ? relations.split(',') : [];
 
       const option: any = {
         where: { id },
       };
-      const record = await this.findOne({ ...option, relationsArray });
+      const record = await this.findOne({
+        ...option,
+        relations: relationsArray,
+      });
       if (!record)
         throw new HttpException('Record not found', HttpStatus.NOT_FOUND);
       return record;
@@ -69,6 +71,7 @@ export abstract class BaseService<
     // }
     Object.assign(record, {
       ...data,
+      // updatedBy: { id: userId },
       updated_at: new Date(),
     });
     try {
@@ -93,7 +96,7 @@ export abstract class BaseService<
       pageSize = parseInt(pagination.pageSize, 10) || 10;
     }
 
-    const relationsArray = relations.split(',');
+    const relationsArray = relations ? relations.split(',') : [];
 
     const whereConditions: FindOptionsWhere<any> = { ...filter };
 
@@ -145,7 +148,7 @@ export abstract class BaseService<
       convertedSearch = { [key]: Like(`%${obj}%`) };
     }
 
-    const relationsArray = relations.split(',');
+    const relationsArray = relations ? relations.split(',') : [];
 
     if (pagination && typeof pagination === 'object') {
       page = parseInt(pagination.page, 10) || 1;
@@ -164,7 +167,7 @@ export abstract class BaseService<
     const total = await this.repo.find({
       withDeleted: true,
       order: sort,
-      // relationArray,
+      relations: relationsArray,
       where: {
         is_deleted: true,
         ...filter,
@@ -210,7 +213,7 @@ export abstract class BaseService<
     return meta;
   }
 
-  async delete(user: UserEntity, id: string): Promise<any> {
+  async delete(user: UserEntity, id: number): Promise<any> {
     const candidate = await this.findOne({
       where: {
         id,
@@ -218,7 +221,6 @@ export abstract class BaseService<
     });
 
     candidate.deletedAt = new Date();
-    candidate.isDeleted = true;
     const test = await this.repo.save(candidate);
     return test;
   }

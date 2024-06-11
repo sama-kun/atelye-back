@@ -2,8 +2,8 @@ import { MigrationInterface, QueryRunner } from 'typeorm';
 import { categories } from '../seeds/category.seed';
 import { CategoryEntity } from '../entities/category.entity';
 
-export class CategorySeed9999999999993 implements MigrationInterface {
-  name = 'CategorySeed9999999999993';
+export class CategorySeed9999999999994 implements MigrationInterface {
+  name = 'CategorySeed9999999999994';
 
   public async up(queryRunner: QueryRunner): Promise<void> {
     if (queryRunner.isTransactionActive) await queryRunner.commitTransaction();

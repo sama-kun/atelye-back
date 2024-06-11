@@ -1,15 +1,16 @@
-import { Entity, Column, ManyToOne, JoinColumn } from 'typeorm';
+import { Entity, Column, JoinColumn, ManyToOne, Relation } from 'typeorm';
 import { ApiProperty } from '@nestjs/swagger';
 
 import { BaseModel } from '@/common/base/BaseModel';
-import { ProviderEntity } from './provider.entity'; // Предполагаем, что файл называется ProviderEntity.ts
 import { IProduct } from '@/interfaces/entities';
+import { CategoryEntity } from './category.entity';
 
 @Entity('products')
 export class ProductEntity extends BaseModel implements IProduct {
   @ApiProperty({ description: 'Category of the product' })
-  @Column({ type: 'varchar', length: 255, nullable: false })
-  category: string;
+  @ManyToOne(() => CategoryEntity, (category) => category.products)
+  @JoinColumn()
+  category: Relation<CategoryEntity>;
 
   @ApiProperty({ description: 'Date when the order was placed' })
   @Column({ type: 'date', nullable: false })
@@ -27,10 +28,10 @@ export class ProductEntity extends BaseModel implements IProduct {
   @Column({ type: 'decimal', precision: 10, scale: 2, nullable: false })
   money: number;
 
-  @ManyToOne(() => ProviderEntity, (provider) => provider.products, {
-    eager: true,
-  })
-  @JoinColumn()
-  @ApiProperty({ type: () => ProviderEntity })
-  provider: ProviderEntity;
+  // @ManyToOne(() => ProviderEntity, (provider) => provider.products, {
+  //   eager: true,
+  // })
+  // @JoinColumn()
+  // @ApiProperty({ type: () => ProviderEntity })
+  // provider: ProviderEntity;
 }

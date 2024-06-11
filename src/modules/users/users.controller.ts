@@ -154,7 +154,7 @@ export class UserController extends BaseController<
   @ApiBearerAuth()
   @UseGuards(RolesGuard)
   @Roles(RoleEnum.ADMIN)
-  delete(@AuthUser() user: UserEntity, @Param('id') id: string) {
+  delete(@AuthUser() user: UserEntity, @Param('id') id: number) {
     return this.dataService.delete(user, id);
   }
 }

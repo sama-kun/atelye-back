@@ -76,7 +76,7 @@ export abstract class BaseController<
   }
 
   @Delete(':id')
-  delete(@AuthUser() user: UserEntity, @Param('id', ParseIntPipe) id: string) {
+  delete(@AuthUser() user: UserEntity, @Param('id', ParseIntPipe) id: number) {
     return this.dataService.delete(user, id);
   }
 }

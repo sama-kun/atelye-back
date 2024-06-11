@@ -2,8 +2,8 @@ import { MigrationInterface, QueryRunner } from 'typeorm';
 import { materials } from '../seeds/material.seed';
 import { MaterialEntity } from '../entities/material.entity';
 
-export class MaterialSeed9999999999992 implements MigrationInterface {
-  name = 'MaterialSeed9999999999992';
+export class MaterialSeed9999999999993 implements MigrationInterface {
+  name = 'MaterialSeed9999999999993';
 
   public async up(queryRunner: QueryRunner): Promise<void> {
     if (queryRunner.isTransactionActive) await queryRunner.commitTransaction();

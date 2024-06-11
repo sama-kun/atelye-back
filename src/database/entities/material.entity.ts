@@ -1,10 +1,11 @@
-import { Entity, Column, OneToMany } from 'typeorm';
+import { Entity, Column, OneToMany, ManyToOne, JoinColumn } from 'typeorm';
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 
 import { BaseModel } from '@/common/base/BaseModel';
 import { CategoryEntity } from './category.entity'; // Предполагаем, что файл называется CategoryEntity.ts
 import { MaterialTypeEnum } from '@/interfaces/enums'; // Предполагаем, что enum типов материалов также определён
 import { IMaterial } from '@/interfaces/entities';
+import { ProviderEntity } from './provider.entity';
 
 @Entity('materials')
 export class MaterialEntity extends BaseModel implements IMaterial {
@@ -36,4 +37,9 @@ export class MaterialEntity extends BaseModel implements IMaterial {
   @ApiPropertyOptional()
   @Column({ nullable: true })
   total?: number;
+
+  @ApiPropertyOptional()
+  @ManyToOne(() => ProviderEntity, { nullable: true })
+  @JoinColumn()
+  provider?: ProviderEntity;
 }
