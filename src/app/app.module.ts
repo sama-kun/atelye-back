@@ -28,6 +28,7 @@ import { PositionModule } from '@/modules/position/position.module';
 import { ProductModule } from '@/modules/product/product.module';
 import { ProviderModule } from '@/modules/provider/provider.module';
 import { ServiceModule } from '@/modules/service/service.module';
+import { HuetaModule } from '@/modules/hueta/hueta.module';
 dotenv.config();
 
 @Module({
@@ -59,6 +60,7 @@ dotenv.config();
     ProductModule,
     ProviderModule,
     ServiceModule,
+    HuetaModule,
 
     // XxxModule,
     TypeOrmModule.forRoot({
